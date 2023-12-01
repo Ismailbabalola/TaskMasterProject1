@@ -31,7 +31,8 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
-    'authapp',
+    # 'authapp',
+    'authapp.apps.AuthappConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -121,7 +122,7 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-LOGIN_REDIRECT_URL = 'dashboard' 
+LOGIN_REDIRECT_URL = 'tasks' 
 LOGIN_URL = 'login'
 LOGOUT_URL = 'logout'
 

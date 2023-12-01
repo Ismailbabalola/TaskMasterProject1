@@ -3,11 +3,69 @@
 {% block title %}Create Your Account {% endblock %}
 
 {% block content %}
-    <h1>Create Your Account</h1>
-    <p>Please, sign up using the following form: </p>
-    <form method="post">
-        {{ user_form.as_p }}
+
+{% comment %} <div class="header-bar">
+    <h1>Register</h1>
+</div>
+
+<div class="card-body">
+     {% endcomment %}
+    {% comment %} <h1>Create Your Account</h1> {% endcomment %}
+        {% comment %} <p>Please, sign up using the following form: </p> {% endcomment %}
+
+    {% comment %} <form method="POST">
+        {{ form.as_p}}
         {% csrf_token %}
-        <p><input type="submit" value="Create My Account"></p>
+
+        <input type="hidden" name="next" value="{{ next }}" />
+        <p>
+            <inout type="submit" value="Log-in"
+        </p>
     </form>
-{% endblock %}
+    <p>
+        Already have an account?
+        <a href="{% url 'login' %}">Login</a>
+    </p>
+</div> {% endcomment %}
+
+    <div class="header-bar">
+        <h1>Create Your Account</h1>
+        <a href="{% url 'login' %}">&#8592; Back</a>
+    </div>
+    <div class="card-body">
+
+        <p>Please, sign up using the following form: </p>
+        <form method="post">
+            {{ user_form.as_p }}
+            {% csrf_token %}
+            <p><input class="button" type="submit" value="Create My Account"></p>
+        </form>
+    </div>
+
+    {% comment %} <h1>Log-in</h1>
+    {% if form.errors %}
+    <p>
+        Please, check your username and password
+    </p>
+    {% else %}
+    <p>
+        Please, use the following form to Login. If you don't have an account
+        <a href="{% url 'register' %}">register here</a>
+    </p>
+    {% endif %}
+    <div class="login-form">
+        <form action="{% url 'login' %}" method="post">
+            {{ form.as_p }}
+            {% csrf_token %}
+            <input type="hidden" name="next" value="{{ next }}" />
+            <p>
+                <input type="submit" value="Log-in">
+            </p>
+        </form>
+        <p>
+            <a href="{% url 'password_reset' %}">
+                Forgotten Your password? 
+            </a>
+        </p>
+    </div> {% endcomment %}
+{% endblock %}  
