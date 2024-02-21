@@ -1,9 +1,9 @@
 {% extends "base.html" %}
-{% block title %}Login{% endblock%}
+{% comment %} {% block title %}Login{% endblock%} {% endcomment %}
 
 {% block content %}
 
-    <div class="header-bar">
+    {% comment %} <div class="header-bar">
         <h1>Login</h1>  
     </div>
     
@@ -32,5 +32,44 @@
                 </a>
             </p>
         </div>
+    </div> {% endcomment %}
+<body>
+    <div class="login">
+        {% comment %} <h3 class="title">TaskMaster</h3>
+        <div class="text-input">
+            <i class="fa fa-envelope"></i>
+            <input type="text" placeholder="Email">
+        </div>
+        <div class="text-input">
+            <i class="fa fa-lock"></i>
+            <input type="password" placeholder="Password">
+        </div> {% endcomment %}
+
+        {% comment %} <button class="login-btn">Login</button> {% endcomment %}
+
+        <div class="login-form">
+            <h3 class="title">TaskMaster</h3>
+            <form action="{% url 'login' %}" method="post">
+                {{ form.as_p }}
+                {% csrf_token %}
+                <input type="hidden" name="next value="{{ next }}" />
+                <p>
+                    <input class="login-btn" type="submit" value="log-in">
+                </p>
+                <a href="{% url 'password_reset' %}" class="forgot">        Forgot Password?</a>
+
+            </form>
+
+        </div> 
+
+        <div class="create">
+            <p>
+                Don't have an account?
+                <a href="{% url 'register' %}">register here</a>
+            </p>
+            <i class="fa fa-arrow-right"></i>
+        </div>
     </div>
+</body>
+    
 {% endblock %}
