@@ -36,7 +36,7 @@
 
         
     </body>
-</html>
+</html> {%endcomment %}
 
 
 
@@ -55,6 +55,9 @@
 
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@200&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    {% comment %} <link rel="stylesheet" href="path_to_remicon_css/remicon.css"> {% endcomment %}
+
 
     <style>
         body {
@@ -83,11 +86,19 @@
         }
 
         .container {
-            max-width: 550px;
+            {% comment %} max-width: 550px;
             margin: auto;
             background-color: #fff;
             -webkit-box-shadow: 2px 2px 13px -4px rgba(0, 0, 0, 0.21);
-            box-shadow: 2px 2px 13px -4px rgba(0, 0, 0, 0.21);
+            box-shadow: 2px 2px 13px -4px rgba(0, 0, 0, 0.21); {% endcomment %}
+
+
+            width: 35%;  /* Adjust this value to make the container narrower */
+            {% comment %} height: 500px; /* Adjust this value to make the container taller */ {% endcomment %}
+            margin: 0 auto; /* This centers the container horizontally */
+            /* Other styling properties */
+            padding: 20px;
+            box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
         }
 
         input {
@@ -96,13 +107,22 @@
         }
 
         .header-bar {
-            display: flex;
+            {% comment %} display: flex; {% endcomment %}
             justify-content: space-between;
             color: #fff;
             padding: 10px;
             border-radius: 5px 5px 0 0;
             background: linear-gradient(90deg, #EEA390 0%, #EB796F 43%, #EB796F 100%);
+                {% comment %} text-align: center;  {% endcomment %}
         }
+        {% comment %} .header-bar {
+            text-align: center;
+            color: black;
+        } {% endcomment %}
+        .header-bar .title {
+            text-align: center;
+        }
+        
 
         .header-bar a {
             color: rgb(247, 247, 247);
@@ -237,25 +257,226 @@
         .card-body {
             padding: 20px;
         }
+
+
+        /* Additional Styles */
+        .error-message {
+            color: #ff6b6b;
+            margin-bottom: 15px;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .form-group input {
+            width: 100%;
+            padding: 8px 10px;
+            margin-top: 5px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        .button {
+            background-color: #EB796F;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            width: 100%;
+            font-size: 16px;
+        }
+
+        .button:hover {
+            background-color: #cf6e66;
+        }
+
+        .register-link, .password-reset-link {
+            text-align: center;
+            margin-top: 15px;
+        }
+
+        .register-link a, .password-reset-link a {
+            color: #EB796F;
+            text-decoration: none;
+        }
+
+        .register-link a:hover, .password-reset-link a:hover {
+            text-decoration: underline;
+        }
+        .form-icon-group {
+            position: relative;
+            margin-bottom: 15px;
+        }
+        .icon {
+            position: absolute;
+            left: 10px;
+            top: 10px;
+            color: #757575;
+        }
+        .form-icon-group input {
+            padding-left: 30px
+        }
+        
+
+
+        .password-group {
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+        
+        .password-toggle {
+            position: absolute;
+            right: 10px;
+            cursor: pointer;
+        }
+        
+        .password-group input[type="password"] {
+            padding-right: 30px; /* Adjust space for the toggle icon */
+        }
+        
+
+
+        {% comment %} .social-login {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .google-login, .facebook-login, .twitter-login {
+            margin: 5px;
+            color: white;
+            border: none;
+            padding: 10px;
+            border-radius: 4px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .google-login {
+            background-color: #db4437;
+        }
+        .facebook-login {
+            background-color: #3b5998;
+        }
+        .twitter-login {
+            background-color: #1da1f2;
+        } {% endcomment %}
+
+        {% comment %} .social-login-container {
+            text-align: center; /* Center the logos if desired */
+            padding: 10px; /* Optional: Adds some space around the logos */
+        }
+        
+        .social-logo {
+            display: inline-block; /* This makes the images sit side by side */
+            margin-right: 10px; /* Optional: Adds space between the logos */
+            width: 50px; /* Adjust size as needed */
+            height: auto; /* Keeps the aspect ratio of the images */
+        } {% endcomment %}
+
+        .social-logins {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .social-login {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid #ddd;
+            padding: 5px 20px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            cursor: pointer;
+            width: 250px;
+            border-radius: 20px;
+        }
+        
+        .social-logo {
+            height: 30px;
+            width: auto;
+            margin-right: 10px;
+        }
+        
+        .social-login span {
+            font-size: 14px;
+            color: black; /* Changed to solid black */
+            font-weight: bold; /* Make text bold */
+
+        }
+        .line-separator {
+            display: flex;
+            align-items: center;
+            text-align: center;
+            margin: 20px 0;
+            color: #666;
+            font-weight: bold;
+        }
+        
+        .line-separator::before,
+        .line-separator::after {
+            content: '';
+            flex: 1;
+            border-bottom: 2px solid #ddd; /* Adjust the thickness and color of the line */
+            margin: 0 10px;
+        }
+        
+        .email-input-container {
+            display: flex;
+            align-items: center;
+        }
+        
+        .oval-input {
+            border-radius: 20px;
+            border: 1px solid #ccc;
+            padding: 5px 10px;
+            margin-left: 10px; /* Adjust spacing between label and input */
+            flex-grow: 1; /* Makes the input field take the remaining space */
+        }
+        
+        .oval-input input {
+            border: none;
+            outline: none;
+            width: 100%; /* Makes the input field fill the oval-input container */
+        }
+        
+
+        
+        header-content {
+            /* Styles for the content section */
+            /* For example: */
+            flex-grow: 1;
+        }
+        
+        .header-auth {
+            /* Styles for the authentication links section */
+            /* Align to the right */
+            display: flex;
+            justify-content: flex-end;
+        }
+        
+        .header-auth a {
+            /* Styles for the authentication links */
+            padding: 5px 10px;
+            text-decoration: none;
+            color: #fff; /* or any color you prefer */
+            /* Add more styles as needed */
+        }
+        
+        
+        
+        
+        
+        
     </style>
-</head> {% endcomment %}
+</head>
+<body>
 
-{% comment %} <body>
-
-    <div class="container"> {% endcomment %}
-        {% comment %} {% block content %} {% endblock content %} {% endcomment %}
-        {% comment %} <div class="design">
-            <div class="pill-1"></div>
-            <div class="pill-2"></div>
-            <div class="pill-3"></div>
-            <div class="pill-4"></div>
-        </div>
+    <div class="container">
+        {% block content %} {% endblock content %}
     </div>
-
-</body> {% endcomment %}
-
-
-{% comment %} </html> {% endcomment %}
+</body>
+</html>
 
 
 
@@ -496,11 +717,12 @@
 
 
 
-<!DOCTYPE html>
+{% comment %} <!DOCTYPE html>
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
+     {% endcomment %}
+    {% comment %} <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -508,7 +730,19 @@
 
     <title>Modern Login Page | theuicode.com</title>
     
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet"> {% endcomment %}
+
+
+
+{% comment %} 
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="TaskMaster">
+    <title>Modern Login Page | theuicode.com</title>
     <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Poppins&display=swap" rel="stylesheet"> {% endcomment %}
+
     {% comment %} <link rel="stylesheet" href="{% static "css/base.css" %}}"> {% endcomment %}
 
 {% comment %} <body>
@@ -708,6 +942,14 @@
 
 </style> {% endcomment %}
 
+
+
+
+
+
+
+ {% comment %} Purple design comment  
+
     <style>
         body {
             font-family: 'Poppins', sans-serif;
@@ -782,6 +1024,12 @@
             border-radius: 70px;
         }
 
+        .login-form {
+            width: 100%;
+            max-width: 360px;
+            margin: auto;
+            text-align: center;
+        }
         .login {
             grid-area: login;
             height:60vh;
@@ -801,13 +1049,6 @@
         /* Apply custom styles to form inputs */
         form input[type="text"],
         form input[type="password"] {
-            {% comment %} width: 100%;
-            padding: 10px;
-            margin-bottom: 10px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            box-sizing: border-box; {% endcomment %}
-
             background: #e6e6e6;
             height: 40px;
             display: flex;
@@ -815,7 +1056,7 @@
             border-radius: 10px;
             padding: 0 15px;
             margin: 5px 0;
-            width: 100%
+            width: 100%;
 
         }
         
@@ -845,7 +1086,7 @@
             background: #e6e6e6;
             height: 40px;
             display: flex;
-            width: 60%;
+            width: 100%;
             align-items: center;
             border-radius: 10px;
             padding: 0 15px;
@@ -869,8 +1110,16 @@
             color: #9a9a9a;
         }
 
+        .login-help {
+            margin-top: 20px;
+        }
+        .login-help a{
+            display: block;
+            margin-bottom: 10px;
+        }
+
         .login-btn {
-            width: 120%;
+            width: 100%;
             padding: 10px;
             color: white;
             background: linear-gradient(to right, #ff966d, #fa538d, #89379c);
@@ -879,6 +1128,7 @@
             border-radius: 20px;
             cursor: pointer;
             margin-top: 10px;
+            margin-right: 20px;
         }
         .forgot-btn {
             text-align: center;
@@ -890,6 +1140,9 @@
             cursor: pointer;
             user-select: none;
             text-decoration: none;
+        }
+        .forgot, .create p {
+            text-align: center;
         }
 
         a.forgot {
@@ -938,3 +1191,5 @@
     </div>
 </body>
 </html>
+
+Purple design end {% endcomment %}

@@ -7,6 +7,9 @@ from django.views.generic.detail import DetailView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.urls import reverse_lazy
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth import authenticate, login
+from django.shortcuts import render, redirect
+
 
 from .forms import *
 from .models import Task
@@ -32,6 +35,25 @@ def register(request):
     else:
         user_form = UserRegistrationForm()
     return render(request, 'registration/register.html', {'user_form': user_form})
+
+
+def user_login(request):
+    if request.method == 'POST':
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+        user = authenticate(request, username=username, password=password)
+
+        if user is not None:
+            login(request, user)
+            return redirect('login')  # Redirect to the dashboard.
+        else:
+            # Return an 'invalid login' error message.
+            context = {'error': 'Invalid username or password'}
+            return render(request, 'registration/login.html', context)  # Update with your login template path.
+    else:
+        return render(request, 'registration/login.html')  # Update with your login template path.
+
+
 
 class TaskList(LoginRequiredMixin, ListView):
     model = Task

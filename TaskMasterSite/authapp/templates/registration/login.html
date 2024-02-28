@@ -1,9 +1,12 @@
 {% extends "base.html" %}
 {% comment %} {% block title %}Login{% endblock%} {% endcomment %}
 
-{% block content %}
 
-    {% comment %} <div class="header-bar">
+
+{% comment %} Initial design that works 100%
+ {% block content %}
+
+    <div class="header-bar">
         <h1>Login</h1>  
     </div>
     
@@ -32,9 +35,161 @@
                 </a>
             </p>
         </div>
+    </div> 
+{% endblock %} {% endcomment %}
+
+
+
+
+
+
+
+
+
+{% comment %} {% block content %}
+<div class="header-bar">
+    <h1>TaskMaster</h1>  
+</div>
+
+<div class="card-body">
+    {% if form.errors %}
+    <div class="error-message">
+        Please, check your username and password.
+    </div>
+    {% endif %}
+    <div class="login-form">
+        <form action="{% url 'login' %}" method="post">
+            {% csrf_token %}
+            <div class="form-icon-group">
+                <i class="fa fa-user icon"></i>
+                {{ form.username }}
+            </div>
+            <div class="form-icon-group">
+                <i class="fa fa-lock icon"></i>
+                {{ form.password }}
+            </div>
+            <input type="hidden" name="next" value="{{ next }}" />
+            <button type="submit" class="button">Log In</button>
+        </form>
+        <p class="register-link">
+            Don't have an account?
+            <a href="{% url 'register' %}">Register here</a>
+        </p>
+        <p class="password-reset-link">
+            <a href="{% url 'password_reset' %}">
+                Forgotten Your Password?
+            </a>
+        </p>
+    </div>
+</div>
+{% endblock %} working as wellllll {% endcomment %}   
+
+
+{% block content %}
+<div class="header-bar">
+    <h1 class="title">TaskMaster</h1>  
+</div>
+
+<div class="card-body">
+    
+
+
+
+    {% comment %} <div class="social-login">
+        <button class="google-login">
+            {% load static %}
+            <img src="{% static 'img/google.png' %}" alt="Google" class="social-logo">
+        </button>
+        <button class="facebook-login">
+            <img src="{% static 'img/facebook.png'%}" alt="Facebook" class="social-logo">
+        </button>
     </div> {% endcomment %}
-<body>
-    <div class="login">
+
+
+
+    {% comment %} <div class="social-logins">
+        {% load static %}
+        <img src="{% static 'img/google.png' %}" alt="Google" class="social-logo">
+        <img src="{% static 'img/facebook.png' %}" alt="Apple" class="social-logo">
+    </div> {% endcomment %}
+
+    <div class="social-logins">
+        {% load static %}
+        <div class="social-login google">
+            <img src="{% static 'img/google.png' %}" alt="Google" class="social-logo">
+            <span>Sign in with Google</span>
+        </div>
+        <div class="social-login apple">
+            <img src="{% static 'img/apple.png' %}" alt="Apple" class="social-logo">
+            <span>Sign in with Apple</span>
+        </div>
+    </div>
+
+    <div class="line-separator">or</div>
+    
+    
+
+
+
+    {% if form.errors %}
+    <div class="error-message">
+        Please, check your username and password.
+    </div>
+    {% endif %}
+    <div class="login-form">
+        <form action="{% url 'login' %}" method="post">
+            {% csrf_token %}
+            <div class="form-icon-group">
+                <i class="fa fa-user icon"></i>
+                {{ form.username }}
+            </div>
+            <div class="form-icon-group password-group">
+                <i class="fa fa-lock icon"></i>
+                {{ form.password }}
+                <span class="password-toggle" onclick="togglePasswordVisibility()">
+                    <i class="fa fa-eye" id="togglePasswordIcon"></i>
+                </span>
+            </div>
+            <input type="hidden" name="next" value="{{ next }}" />
+            <button type="submit" class="button">Log In</button>
+        </form>
+        <p class="register-link">
+            Don't have an account?
+            <a href="{% url 'register' %}">Register here</a>
+        </p>
+        <p class="password-reset-link">
+            <a href="{% url 'password_reset' %}">
+                Forgotten Your Password?
+            </a>
+        </p>
+    </div>
+</div>
+
+<script>
+    function togglePasswordVisibility() {
+        var passwordInput = document.querySelector('.password-group input[type="password"]');
+        var toggleIcon = document.getElementById('togglePasswordIcon');
+        if (passwordInput.type === "password") {
+            passwordInput.type = "text";
+            toggleIcon.classList.add('fa-eye-slash');
+            toggleIcon.classList.remove('fa-eye');
+        } else {
+            passwordInput.type = "password";
+            toggleIcon.classList.remove('fa-eye-slash');
+            toggleIcon.classList.add('fa-eye');
+        }
+    }
+</script>
+
+{% endblock %}
+
+
+
+{% comment %} <body>
+    <div class="login"> {% endcomment %}
+
+
+
         {% comment %} <h3 class="title">TaskMaster</h3>
         <div class="text-input">
             <i class="fa fa-envelope"></i>
@@ -47,7 +202,10 @@
 
         {% comment %} <button class="login-btn">Login</button> {% endcomment %}
 
-        <div class="login-form">
+
+
+
+        {% comment %} <div class="login-form">
             <h3 class="title">TaskMaster</h3>
             <form action="{% url 'login' %}" method="post">
                 {{ form.as_p }}
@@ -56,7 +214,7 @@
                 <p>
                     <input class="login-btn" type="submit" value="log-in">
                 </p>
-                <a href="{% url 'password_reset' %}" class="forgot">        Forgot Password?</a>
+                <a href="{% url 'password_reset' %}" class="forgot">Forgot Password?</a>
 
             </form>
 
@@ -72,4 +230,92 @@
     </div>
 </body>
     
+{% endblock %} {% endcomment %}
+
+
+
+
+
+
+
+
+{% comment %} <body>
+    <div class="login">
+        <div class="login-form">
+            <h3 class="title">TaskMaster</h3>
+            <form action="{% url 'login' %}" method="post">
+                {% csrf_token %}
+                <div class="text-input">
+                    <i class="ri-user-line"></i>
+                    <input type="text" placeholder="Username" name="username" required>
+                </div>
+                <div class="text-input">
+                    <i class="ri-lock-2-line"></i>
+                    <input type="password" placeholder="Password" name="password" required>
+                </div>
+                <input type="hidden" name="next" value="{{ next }}" />
+                <button class="login-btn" type="submit">Log In</button>
+                <a href="{% url 'password_reset' %}" class="forgot">Forgot Password?</a>
+            </form>
+        </div> 
+
+        <div class="create">
+            <p>
+                Don't have an account?
+                <a href="{% url 'register' %}">register here</a>
+            </p>
+            <i class="fa fa-arrow-right"></i>
+        </div>
+    </div>
+</body>
+
+{% endblock %} {% endcomment %}
+
+
+
+
+
+
+
+
+
+{% comment %} purple design comment 
+
+<body>
+    <div class="login">
+        <div class="login-form">
+            <h3 class="title">TaskMaster</h3>
+            <form action="{% url 'login' %}" method="post">
+                {% csrf_token %}
+                {% if error %}
+                    <p style="color: red;">{{ error }}</p>
+                {% endif %}
+                <input type="hidden" name="next" value="{{ next }}" />
+
+                <div class="text-input">
+                    <i class="ri-user-line"></i>
+                    <input type="text" placeholder="Username or Email" name="username" required>
+                </div>
+
+
+                <div class="text-input">
+                    <i class="ri-lock-2-line"></i>
+                    <input type="password" placeholder="Password" name="password" id="password" required>
+                    <span onclick="togglePasswordVisibility()">
+                        <i class="ri-eye-line" id="togglePasswordIcon"></i>
+                    </span>
+                </div>
+                
+
+                <button class="login-btn" type="submit">Log In</button>
+            </form>
+            <div class="login-help">
+                <a href="{% url 'password_reset' %}" class="forgot">Forgot Password?</a>
+                <p>Don't have an account? <a href="{% url 'register' %}">Register here</a></p>
+            </div>
+        </div> 
+    </div>
+</body>
 {% endblock %}
+
+purple design comment {% endcomment %}
