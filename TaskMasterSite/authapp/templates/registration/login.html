@@ -91,46 +91,31 @@
 </div>
 
 <div class="card-body">
-    
-
-
-
-    {% comment %} <div class="social-login">
-        <button class="google-login">
-            {% load static %}
-            <img src="{% static 'img/google.png' %}" alt="Google" class="social-logo">
-        </button>
-        <button class="facebook-login">
-            <img src="{% static 'img/facebook.png'%}" alt="Facebook" class="social-logo">
-        </button>
-    </div> {% endcomment %}
-
-
-
-    {% comment %} <div class="social-logins">
-        {% load static %}
-        <img src="{% static 'img/google.png' %}" alt="Google" class="social-logo">
-        <img src="{% static 'img/facebook.png' %}" alt="Apple" class="social-logo">
-    </div> {% endcomment %}
-
     <div class="social-logins">
         {% load static %}
-        <div class="social-login google">
+
+        {% comment %} <div class="social-login google">
             <img src="{% static 'img/google.png' %}" alt="Google" class="social-logo">
             <span>Sign in with Google</span>
+        </div> {% endcomment %}
+
+        <div class="social-login google">
+            <a href="{% url 'google_login' %}">
+                <img src="{% static 'img/google.png' %}" alt="Google" class="social-logo">
+                <span>Sign in with Google</span>
+            </a>
         </div>
-        <div class="social-login apple">
-            <img src="{% static 'img/apple.png' %}" alt="Apple" class="social-logo">
-            <span>Sign in with Apple</span>
+        
+
+        <div class="social-login Github">
+            <a href="{% url 'github_login' %}">
+                <img src="{% static 'img/Github4.png' %}" alt="Github" class="social-logo">
+                <span>Sign in with Github</span>
+            </a>
         </div>
     </div>
 
     <div class="line-separator">or</div>
-    
-    
-
-
-
     {% if form.errors %}
     <div class="error-message">
         Please, check your username and password.

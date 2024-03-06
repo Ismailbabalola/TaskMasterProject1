@@ -15,3 +15,11 @@ class Task(models.Model):
     
     class Meta:
         ordering = ['complete']
+        
+    PRIORITY_CHOICES = [
+        ('H', 'High'),
+        ('M', 'Medium'),
+        ('L', 'Low'),
+    ]
+    priority = models.CharField(max_length=1, choices=PRIORITY_CHOICES, default='M')
+        

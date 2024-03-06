@@ -149,6 +149,15 @@
             margin-left: 10px;
         }
 
+        .task-complete-icon, .task-incomplete-icon {
+            height: 20px;
+            width: 20px;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 20px; /* Centers text vertically */
+            font-weight: bold; /* Make the priority letter bold */
+        }
+        
         .task-complete-icon {
             height: 20px;
             width: 20px;
@@ -380,6 +389,19 @@
             gap: 10px;
         }
         
+        {% comment %} .social-login {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid #ddd;
+            padding: 5px 20px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            cursor: pointer;
+            width: 250px;
+            border-radius: 20px;
+        } {% endcomment %}
+
+
         .social-login {
             display: flex;
             align-items: center;
@@ -390,7 +412,19 @@
             cursor: pointer;
             width: 250px;
             border-radius: 20px;
+            text-decoration: none; /* Remove underline from links */
+            color: inherit; /* Use the inherited text color */
         }
+        
+        .social-login a {
+            display: flex;
+            align-items: center;
+            width: 100%;
+            justify-content: center;
+            text-decoration: none;
+            color: inherit; /* Inherit the text color */
+        }
+        
         
         .social-logo {
             height: 30px;
@@ -459,9 +493,19 @@
             /* Styles for the authentication links */
             padding: 5px 10px;
             text-decoration: none;
-            color: #fff; /* or any color you prefer */
+            color: white; /* or any color you prefer */
             /* Add more styles as needed */
         }
+
+
+        .priority-box {
+            padding: 3px;
+            margin-right: 5px;
+            border: 1px solid #ddd;
+            /* Add more styling as needed */
+        }
+
+        
         
         
         
