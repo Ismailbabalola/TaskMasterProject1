@@ -1,0 +1,100 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<script>
+    function toggleCompletedTasks() {
+        var completedTasksSection = document.getElementById('completed-tasks-section');
+        var showCompletedTasksButton = document.getElementById('show-completed-tasks-button');
+
+        if (completedTasksSection.style.display === 'none') {
+            completedTasksSection.style.display = 'block';
+            showCompletedTasksButton.innerText = 'Hide Completed Tasks';
+        } else {
+            completedTasksSection.style.display = 'none';
+            showCompletedTasksButton.innerText = 'Show Completed Tasks';
+        }
+    }
+</script>
+
+<div class="header-bar">
+    <div class="header-content">
+        <h1>Hello {{ request.user|title }}</h1>
+        <h3 style="margin:0">You have <i>{{ count }}</i> incomplete task{{ count|pluralize:"s" }}</h3>
+    </div>
+
+    <div class="header-auth">
+        {% if request.user.is_authenticated %}
+        <form action="{% url 'logout' %}" method="post" style="display: inline;">
+            {% csrf_token %}
+            <button type="submit" style="font-size:14px; background: none; border: none; padding: 0; color: white; text-decoration: underline; cursor: pointer;">Logout</button>
+        </form>
+        {% else %}
+        <a href="{% url 'login' %}">Login</a>
+        {% endif %}
+    </div>
+
+</div>
+
+<div id="search-add-wrapper">
+    <form method="GET" style="margin-top: 20px;display: flex;">
+        <input type="text" name='search-area' value="{{search_input}}">
+        <input type="submit" value='Search'>
+    </form>
+    <a id="add-link" href="{% url 'task-create' %}">&#x2b</a>
+</div>
+
+<div class="task-items-wrapper">
+    <!-- Incomplete tasks -->
+    {% for task in tasks %}    
+    <div class="task-wrapper">
+        <div class="task-title">
+            <!-- Combined task completion icon with priority -->
+            <div class="{% if task.complete %}task-complete-icon{% else %}task-incomplete-icon{% endif %}">
+                {{ task.priority|first }}
+            </div>
+
+            <!-- Task title display -->
+            {% if task.complete %}
+                <i><s><a href="{% url 'task-update' task.id %}">{{ task }}</a></s></i>
+            {% else %}
+                <a href="{% url 'task-update' task.id %}">{{ task }}</a>
+            {% endif %}
+        </div>
+        <a class="delete-link" href="{% url 'task-delete' task.id %}">&#215;</a>
+    </div>
+    {% empty %}
+    <h3>No items in list</h3>
+    {% endfor %}
+</div>
+
+<!-- Button to toggle completed tasks section -->
+<button id="show-completed-tasks-button" onclick="toggleCompletedTasks()">Show Completed Tasks</button>
+
+<!-- Completed tasks section (hidden by default) -->
+<div id="completed-tasks-section" style="display: none;">
+    <div class="task-items-wrapper">
+        <!-- Completed tasks -->
+        {% for task in completed_tasks %}
+        <div class="task-wrapper">
+            <div class="task-title">
+                <!-- Combined task completion icon with priority -->
+                <div class="{% if task.complete %}task-complete-icon{% else %}task-incomplete-icon{% endif %}">
+                    {{ task.priority|first }}
+                </div>
+                <!-- Task title display -->
+                {% if task.complete %}
+                    <i><s><a href="{% url 'task-update' task.id %}">{{ task }}</a></s></i>
+                {% else %}
+                    <a href="{% url 'task-update' task.id %}">{{ task }}</a>
+                {% endif %}
+            </div>
+            <a class="delete-link" href="{% url 'task-delete' task.id %}">&#215;</a>
+        </div>
+        {% empty %}
+        <h3>No completed tasks</h3>
+        {% endfor %}
+    </div>
+</div>
+
+{% endblock content %}

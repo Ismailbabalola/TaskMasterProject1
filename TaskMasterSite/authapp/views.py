@@ -126,6 +126,14 @@ class TaskList(LoginRequiredMixin, ListView):
             context['tasks'] = tasks.filter(title__startswith=search_input)
 
         context['search_input'] = search_input
+        
+        
+        
+        
+        
+        all_tasks_completed = tasks.exists() and tasks.filter(complete=False).count() == 0
+        context['all_tasks_completed'] = all_tasks_completed
+
         return context
 
     
@@ -168,4 +176,6 @@ class LoggedOutView(TemplateView):
 
 
 
-
+def completed_tasks_view(request):
+    completed_tasks = Task.objects.filter(complete=True)
+    return render(request, 'completed_tasks.html', {'completed_tasks': completed_tasks})

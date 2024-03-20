@@ -2,24 +2,52 @@
 
 {% block content %}
 
+<script>
+    // Function to check if all tasks are completed
+    function checkTasks() {
+        var tasks = document.querySelectorAll('.task-wrapper');
+        var completedTasks = document.querySelectorAll('.task-complete-icon');
+        
+        if (tasks.length === completedTasks.length) {
+            // All tasks are completed, hide task list and display "Well Done!" message
+            var taskItemsWrapper = document.querySelector('.task-items-wrapper');
+            taskItemsWrapper.innerHTML = ""; // Clear the task list
+            
+            var messageContainer = document.createElement('div');
+            messageContainer.classList.add('message-container');
+            messageContainer.style.textAlign = 'center';
+            messageContainer.style.marginTop = '50px';
+            messageContainer.innerHTML = "<h1>Well Done!</h1><p>You have completed all your tasks. Time to recharge</p>";
+
+            taskItemsWrapper.appendChild(messageContainer);
+
+            var showCompleteTasksButton = document.createElement('button');
+            showCompleteTasksButton.innerText = "Show Complete Tasks";
+            showCompleteTasksButton.classList.add('show-complete-tasks-button');
+            showCompleteTasksButton.onclick = function() {
+                // Redirect to the page where completed tasks are shown
+                window.location.href = "{% url 'completed-tasks' %}";
+            };
+            
+
+            taskItemsWrapper.appendChild(showCompleteTasksButton);
+        }
+    }
+
+    // Call the function when the page loads
+    window.onload = function() {
+        checkTasks();
+    };
+</script>
+
 <div class="header-bar">
     <div class="header-content">
         <h1>Hello {{ request.user|title }}</h1>
         <h3 style="margin:0">You have <i>{{ count }}</i> incomplete task{{ count|pluralize:"s" }}</h3>
     </div>
-    
-    {% comment %} <div class="header-auth">
-        {% if request.user.is_authenticated %}
-        <a href="{% url 'logout' %}">Logout</a>
-        {% else %}
-        <a href="{% url 'login' %}">Login</a>
-        {% endif %}
-    </div> {% endcomment %}
-
 
     <div class="header-auth">
         {% if request.user.is_authenticated %}
-        <!-- Logout Form -->
         <form action="{% url 'logout' %}" method="post" style="display: inline;">
             {% csrf_token %}
             <button type="submit" style="font-size:14px; background: none; border: none; padding: 0; color: white; text-decoration: underline; cursor: pointer;">Logout</button>
@@ -32,6 +60,39 @@
 </div>
 
 
+<div id="search-add-wrapper">
+    <form method="GET" style="margin-top: 20px;display: flex;">
+        <input type="text" name='search-area' value="{{search_input}}">
+        <input type="submit" value='Search'>
+    </form>
+    <a id="add-link" href="{% url 'task-create' %}">&#x2b</a>
+</div>
+
+
+<div class="task-items-wrapper">
+    {% for task in tasks %}    
+    <div class="task-wrapper {% if task.complete %}completed-task-wrapper{% endif %}">
+        <div class="task-title">
+            <!-- Combined task completion icon with priority -->
+            <div class="{% if task.complete %}task-complete-icon{% else %}task-incomplete-icon{% endif %}">
+                {{ task.priority|first }}
+            </div>
+
+            <!-- Task title display -->
+            {% if task.complete %}
+                <i><s><a href="{% url 'task-update' task.id %}">{{ task }}</a></s></i>
+            {% else %}
+                <a href="{% url 'task-update' task.id %}">{{ task }}</a>
+            {% endif %}
+        </div>
+        <a class="delete-link" href="{% url 'task-delete' task.id %}">&#215;</a>
+    </div>
+{% empty %}
+    <h3>No items in list</h3>
+{% endfor %}
+</div>
+
+{% endblock content %}
 
 
 
@@ -39,6 +100,28 @@
 
 
 
+{% comment %} {% extends 'base.html' %}
+
+{% block content %}
+
+<div class="header-bar">
+    <div class="header-content">
+        <h1>Hello {{ request.user|title }}</h1>
+        <h3 style="margin:0">You have <i>{{ count }}</i> incomplete task{{ count|pluralize:"s" }}</h3>
+    </div>
+
+    <div class="header-auth">
+        {% if request.user.is_authenticated %}
+        <form action="{% url 'logout' %}" method="post" style="display: inline;">
+            {% csrf_token %}
+            <button type="submit" style="font-size:14px; background: none; border: none; padding: 0; color: white; text-decoration: underline; cursor: pointer;">Logout</button>
+        </form>
+        {% else %}
+        <a href="{% url 'login' %}">Login</a>
+        {% endif %}
+    </div>
+
+</div>
 
 
 <div id="search-add-wrapper">
@@ -50,28 +133,13 @@
 </div>
 
 
+
+
+
+
+
+
 <div class="task-items-wrapper">
-    {% comment %} {% for task in tasks %}    
-        <div class="task-wrapper">
-            {% if task.complete %}
-            <div class="task-title">
-                <div class="task-complete-icon"></div>
-                <i><s><a href="{% url 'task-update' task.id %}">{{task}}</a></s></i>
-            </div>
-            <a class="delete-link" href="{% url 'task-delete' task.id %}">&#215;</a>
-            {% else %}
-            <div class="task-title">
-                <div class="task-incomplete-icon"></div>
-                <a href="{% url 'task-update' task.id %}">{{task}}</a>
-            </div>
-            <a class="delete-link" href="{% url 'task-delete' task.id %}">&#215;</a>
-            {% endif %}
-        </div>
-
-    {% empty %}
-    <h3>No items in list</h3>
-    {% endfor %} {% endcomment %}
-
     {% for task in tasks %}    
     <div class="task-wrapper">
         <div class="task-title">
@@ -97,8 +165,4 @@
     
 </div>
 
-
-
-
-{% endblock content %}
-
+{% endblock content %} {% endcomment %}
