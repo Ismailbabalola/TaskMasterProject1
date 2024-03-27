@@ -2,6 +2,214 @@
 
 {% block content %}
 
+{% comment %} {% block content %} {% endcomment %}
+{% load static %}
+
+<script>
+    // Function to check if all tasks are completed
+    function checkTasks() {
+        var tasks = document.querySelectorAll('.task-wrapper');
+        var completedTasks = document.querySelectorAll('.task-complete-icon');
+        
+        if (tasks.length === completedTasks.length) {
+            // All tasks are completed, hide task list and display "Well Done!" message
+            var taskItemsWrapper = document.querySelector('.task-items-wrapper');
+            taskItemsWrapper.innerHTML = ""; // Clear the task list
+            
+            var messageContainer = document.createElement('div');
+            messageContainer.classList.add('message-container');
+            messageContainer.style.textAlign = 'center';
+            messageContainer.style.marginTop = '0px';
+            messageContainer.innerHTML = "<h1 style='margin-top:0; margin-bottom:10px; line-height: 1.2;'>Well Done!</h1><p style='font-size: 20px; font-weight: bold; margin-top:0;'>Your To-Do list is empty. Time to recharge</p>";
+
+            // Append the message container
+            taskItemsWrapper.appendChild(messageContainer);
+
+            {% comment %} var showCompleteTasksButton = document.createElement('button');
+            showCompleteTasksButton.innerText = "Show Complete Tasks";
+            showCompleteTasksButton.classList.add('show-complete-tasks-button');
+            showCompleteTasksButton.onclick = function() {
+                // Redirect to the page where completed tasks are shown
+                window.location.href = "{% url 'completed-tasks' %}";
+            }; {% endcomment %}
+
+
+
+
+
+
+            {% comment %} // Create the 'Show Complete Tasks' button with light grey box design
+            var showCompleteTasksButton = document.createElement('button');
+            showCompleteTasksButton.innerText = "Show Completed Tasks";
+            showCompleteTasksButton.style.padding = '10px 20px';
+            showCompleteTasksButton.style.fontSize = '16px';
+            showCompleteTasksButton.style.backgroundColor = '#f2f2f2'; // Light grey
+            showCompleteTasksButton.style.color = '#333'; // Darker text color for contrast
+            showCompleteTasksButton.style.border = '1px solid #d9d9d9'; // Subtle border
+            showCompleteTasksButton.style.borderRadius = '4px';
+            showCompleteTasksButton.style.cursor = 'pointer';
+            showCompleteTasksButton.style.transition = 'background-color 0.2s';
+            showCompleteTasksButton.style.textAlign = 'center';
+
+            showCompleteTasksButton.onmouseover = function() {
+                this.style.backgroundColor = '#e6e6e6'; // Slightly darker on hover
+            };
+            showCompleteTasksButton.onmouseout = function() {
+                this.style.backgroundColor = '#f2f2f2';
+            };
+            showCompleteTasksButton.onclick = function() {
+                window.location.href = "{% url 'completed-tasks' %}";
+            }; {% endcomment %}
+
+
+
+
+
+
+
+                        // Create a container for the 'Show Completed Tasks' button
+            var buttonContainer = document.createElement('div');
+            buttonContainer.style.position = 'fixed';
+            buttonContainer.style.left = '50%';
+            buttonContainer.style.bottom = '20px';
+            buttonContainer.style.transform = 'translateX(-50%)';
+
+            // Create the 'Show Completed Tasks' button
+            var showCompleteTasksButton = document.createElement('button');
+            showCompleteTasksButton.innerText = "Show Completed Tasks";
+            showCompleteTasksButton.style.padding = '10px 20px';
+            showCompleteTasksButton.style.fontSize = '16px';
+            showCompleteTasksButton.style.backgroundColor = '#f2f2f2'; // Light grey
+            showCompleteTasksButton.style.color = '#333'; // Dark text color for contrast
+            showCompleteTasksButton.style.border = '1px solid #d9d9d9';
+            showCompleteTasksButton.style.borderRadius = '4px';
+            showCompleteTasksButton.style.cursor = 'pointer';
+            showCompleteTasksButton.style.transition = 'background-color 0.2s';
+            showCompleteTasksButton.style.textAlign = 'center';
+            showCompleteTasksButton.onmouseover = function() {
+                this.style.backgroundColor = '#e6e6e6';
+            };
+            showCompleteTasksButton.onmouseout = function() {
+                this.style.backgroundColor = '#f2f2f2';
+            };
+            showCompleteTasksButton.onclick = function() {
+                window.location.href = "{% url 'completed-tasks' %}";
+            };
+
+            // Append the show complete tasks button to its container
+            buttonContainer.appendChild(showCompleteTasksButton);
+
+
+
+            
+            // Append the show complete tasks button
+            taskItemsWrapper.appendChild(showCompleteTasksButton);
+
+            // Add image
+            {% comment %} var imageContainer = document.createElement('div');
+            imageContainer.classList.add('image-container');
+            var image = document.createElement('img');
+            image.src = "{% static 'img/cat.png' %}"; {% endcomment %}
+            {% comment %} image.style.margin = auto {% endcomment %}
+            {% comment %} image.style.width = "100%"; // Set image width to 100% of container
+            imageContainer.appendChild(image);
+             {% endcomment %}
+
+
+
+
+
+
+
+            // Create and style image container
+            var imageContainer = document.createElement('div');
+            imageContainer.classList.add('image-container');
+            imageContainer.style.textAlign = 'center';
+            imageContainer.style.margin = 'auto';
+            imageContainer.style.width = '50%'; // Adjust the width as needed
+            imageContainer.style.maxWidth = '300px'; // Maximum width of the container
+            {% comment %} imageContainer.style.marginBottom = '0'; {% endcomment %}
+
+            // Create and append image
+            var image = document.createElement('img');
+            image.src = "{% static 'img/cat.png' %}";
+            image.style.width = '100%'; // Make image scale with the container
+            image.style.height = 'auto'; // Maintain aspect ratio
+            imageContainer.appendChild(image); 
+
+
+            
+
+            // Append the image container
+            taskItemsWrapper.insertBefore(imageContainer, messageContainer);
+        }
+    }
+
+    // Call the function when the page loads
+    window.onload = function() {
+        checkTasks();
+    };
+</script>
+
+
+<div class="header-bar">
+    <div class="header-content">
+        <h1>Hello {{ request.user|title }}</h1>
+        <h3 style="margin:0">You have <i>{{ count }}</i> incomplete task{{ count|pluralize:"s" }}</h3>
+    </div>
+
+    <div class="header-auth">
+        {% if request.user.is_authenticated %}
+        <form action="{% url 'logout' %}" method="post" style="display: inline;">
+            {% csrf_token %}
+            <button type="submit" style="font-size:14px; background: none; border: none; padding: 0; color: white; text-decoration: underline; cursor: pointer;">Logout</button>
+        </form>
+        {% else %}
+        <a href="{% url 'login' %}">Login</a>
+        {% endif %}
+    </div>
+
+</div>
+
+
+<div id="search-add-wrapper">
+    <form method="GET" style="margin-top: 20px;display: flex;">
+        <input type="text" name='search-area' value="{{search_input}}">
+        <input type="submit" value='Search'>
+    </form>
+    <a id="add-link" href="{% url 'task-create' %}">&#x2b</a>
+</div>
+
+<div class="task-items-wrapper">
+    {% for task in tasks %}    
+    <div class="task-wrapper {% if task.complete %}completed-task-wrapper{% endif %}">
+        <div class="task-title">
+            <!-- Combined task completion icon with priority -->
+            <div class="{% if task.complete %}task-complete-icon{% else %}task-incomplete-icon{% endif %}">
+                {{ task.priority|first }}
+            </div>
+
+            <!-- Task title display -->
+            {% if task.complete %}
+                <i><s><a href="{% url 'task-update' task.id %}">{{ task }}</a></s></i>
+            {% else %}
+                <a href="{% url 'task-update' task.id %}">{{ task }}</a>
+            {% endif %}
+        </div>
+        <a class="delete-link" href="{% url 'task-delete' task.id %}">&#215;</a>
+    </div>
+    {% empty %}
+    <h3>No items in list</h3>
+    {% endfor %}
+</div>
+
+{% endblock content %}
+
+
+{% comment %} {% extends 'base.html' %}
+
+{% block content %}
+
 <script>
     // Function to check if all tasks are completed
     function checkTasks() {
@@ -93,6 +301,27 @@
 </div>
 
 {% endblock content %}
+ {% endcomment %}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
